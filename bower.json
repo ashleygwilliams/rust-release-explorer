@@ -1,0 +1,6 @@
+{
+  "name": "rust release explorer",
+  "dependencies": {
+    "bootstrap": "~3.3.5"
+  }
+}
