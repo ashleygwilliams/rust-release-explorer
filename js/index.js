@@ -5,8 +5,8 @@ $(function(){
     e.preventDefault();
     $('#ghapidata').html('<div id="loader"><img src="http://i.imgur.com/UqLN6nl.gif" alt="loading..."></div>');
     
-    var release_tag = $('#release').val();
-    var requri   = 'https://api.github.com/repos/rust-lang/rust/issues?tag=' + release_tag;
+    var release_label = $('#release').val();
+    var requri   = 'https://api.github.com/repos/rust-lang/rust/issues?labels=' + release_label;
     
     requestJSON(requri, function(json) {
       if(json.message == "Not Found") {
