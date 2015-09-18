@@ -1,0 +1,47 @@
+body {
+  font-family: 'Quattrocento Sans', sans-serif;
+  background: #4c88ef;
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #4c88ef), color-stop(100%, #17e4d9));
+  background: -webkit-linear-gradient(-45deg, #4c88ef 0%, #17e4d9 100%);
+  background: -webkit-linear-gradient(315deg, #4c88ef 0%, #17e4d9 100%);
+  background: linear-gradient(135deg, #4c88ef 0%, #17e4d9 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c88ef', endColorstr='#17e4d9', GradientType=1);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+h1, h2 {
+  font-weight: bold;
+  padding: 5px 10px;
+  color: white;
+  display: inline;
+}
+
+h2 {
+  background: #dfa941;
+}
+
+h1 {
+  background: #7F2D2C;
+}
+
+section {
+  margin: 30px 0;
+}
+
+#milestones {
+  padding: 20px;
+}
+
+ul {
+  color: white;
+}
+
+a, a:hover {
+  color: white;
+}
+
+.btn {
+  margin: 5px;
+  background-color: white;
+}

@@ -7,11 +7,10 @@ $(function(){
     var milestone_buttons = '';
 
     if(milestones.length === 0) {
-      milestone_buttons = milestone_buttons + '<h2>No Milestones Found.</h2>';
+      milestone_buttons = milestone_buttons + '<h3>No Milestones Found.</h3>';
     } else {
-      milestone_buttons = milestone_buttons + '<h2>Milestones</h2>';
       $.each(milestones, function(index) {
-        milestone_buttons = milestone_buttons + '<button class="milestone" id="' + milestones[index].number + '" >' + milestones[index].title + '</button>';
+        milestone_buttons = milestone_buttons + '<button class=" btn milestone" id="' + milestones[index].number + '" >' + milestones[index].title + '</button>';
       })
     }
 
@@ -30,11 +29,11 @@ $(function(){
         if(issues.length === 0) { 
           outhtml = '<h2>No issues!</h2>'; 
         } else {
-          outhtml = outhtml + '<h2>Issues:</h2> <ul>';
+          outhtml = outhtml + '<h2>Issues:</h2> <section> <ul>';
           $.each(issues, function(index) {
             outhtml = outhtml + '<li><a href="' + issues_baseurl + issues[index].number + '"  target="_blank">'+issues[index].title + '</a></li>';
           });
-          outhtml = outhtml + '</ul></div>'; 
+          outhtml = outhtml + '</section> </ul>'; 
         }
         
         $('#ghapidata').html(outhtml);
