@@ -33,6 +33,14 @@ section {
   padding: 20px;
 }
 
+.logo {
+  width: 25%;
+  position: fixed;
+  top: -20px;
+  right: -20px;
+  z-index: -9999;
+}
+
 ul {
   color: white;
 }
