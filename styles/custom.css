@@ -72,6 +72,11 @@ pre {
   height: 150px;
 }
 
+#loader {
+  padding: 50px;
+  text-align: center;
+}
+
 #notes {
   position: relative;
   overflow: hidden;
