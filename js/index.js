@@ -3,7 +3,7 @@
 $(function(){
   var req_milestones   = 'https://api.github.com/repos/rust-lang/rust/milestones?state=all';
   requestJSON(req_milestones, function(json) {
-    var milestones = json;
+    var milestones = json.slice(13);
     var milestone_buttons = '';
 
     if(milestones.length === 0) {
@@ -17,7 +17,7 @@ $(function(){
     $('#milestones').html(milestone_buttons);
 
     $('.milestone').on('click', function(e){
-      $('#ghapidata').html('<div id="loader"><img src="http://i.imgur.com/UqLN6nl.gif" alt="loading..."></div>');
+      $('#ghapidata').html('<div id="loader"><img src="images/loading.gif" class="loading" alt="loading..."></div>');
     
       var milestone = this.id;
       var req_issues = "https://api.github.com/repos/rust-lang/rust/issues?state=all&milestone=" + milestone;
@@ -33,7 +33,6 @@ $(function(){
           $.each(issues, function(index) {
             outhtml = outhtml + '<li><a href="' + issues_baseurl + issues[index].number + '"  target="_blank">'+issues[index].title + '</a></li>';
           });
-          outhtml = outhtml + '</section> </ul>'; 
         }
         
         $('#ghapidata').html(outhtml);
