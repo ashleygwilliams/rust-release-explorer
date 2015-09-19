@@ -1,6 +1,7 @@
 {
   "name": "rust release explorer",
   "dependencies": {
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "remarkable": "~1.6.0"
   }
 }

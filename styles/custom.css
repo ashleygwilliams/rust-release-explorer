@@ -33,6 +33,11 @@ section {
   padding: 20px;
 }
 
+.loading {
+  text-align: center;
+}
+
+
 .logo {
   width: 25%;
   position: fixed;
@@ -52,4 +57,22 @@ a, a:hover {
 .btn {
   margin: 5px;
   background-color: white;
+}
+
+pre {
+  margin-top: 20px;
+}
+
+#notes h1, #notes h2, #notes ul {
+  background: none;
+  color: black;
+  font-family: monospace;
+}
+
+#notes h2 {
+  font-size: 1.5em;
+}
+
+#notes a, #notes a:hover {
+  color: #7F2D2C;
 }
