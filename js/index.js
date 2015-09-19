@@ -44,10 +44,20 @@ $(function(){
         var milestone = this.id;
 
         $('#releasedata').html(
-          "<h2>Notes</h2><div id='notes'><pre>" +
+          "<h2>Notes</h2><div id='notes' class='collapsed'><pre>" +
           md.render(notes_object[this.name]) +
-          "</pre></div>"
-        );      
+          "</pre></div><button class='btn' id='expand'>Read More</button>"
+        );
+
+        $('#expand').on('click', function(e) {
+          $('#notes').toggleClass('collapsed');
+          var button = $('#expand');
+          if (button.text() === 'Read More') {
+            button.text('Collapse');
+          } else {
+            button.text('Read More');
+          }
+        });
 
         var req_issues = "https://api.github.com/repos/rust-lang/rust/issues?state=all&milestone=" + milestone;
         requestJSON(req_issues, function(json) {

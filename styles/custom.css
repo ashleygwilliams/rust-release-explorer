@@ -63,6 +63,20 @@ pre {
   margin-top: 20px;
 }
 
+#expand {
+  position: absolute;
+  right: 30px;
+}
+
+.collapsed {
+  height: 150px;
+}
+
+#notes {
+  position: relative;
+  overflow: hidden;
+}
+
 #notes h1, #notes h2, #notes ul {
   background: none;
   color: black;
