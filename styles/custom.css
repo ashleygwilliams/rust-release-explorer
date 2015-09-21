@@ -65,11 +65,12 @@ pre {
 
 #expand {
   position: absolute;
-  right: 30px;
+  right: 0;
+  top: 10px;
 }
 
 .collapsed {
-  height: 150px;
+  height: 180px;
 }
 
 #loader {
@@ -77,9 +78,27 @@ pre {
   text-align: center;
 }
 
-#notes {
+#releasedata {
+  padding-top: 10px;
   position: relative;
   overflow: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+#gradient {
+  position: absolute;
+  top: 180px;
+  height: 50px;
+  background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
 }
 
 #notes h1, #notes h2, #notes ul {

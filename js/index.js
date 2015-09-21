@@ -44,13 +44,16 @@ $(function(){
         var milestone = this.id;
 
         $('#releasedata').html(
-          "<h2>Notes</h2><div id='notes' class='collapsed'><pre>" +
+          "<h2>Notes</h2><div id='notes'><pre>" +
           md.render(notes_object[this.name]) +
-          "</pre></div><button class='btn' id='expand'>Read More</button>"
+          "</pre></div>" +
+          "<div id='gradient'></div>" +
+          "<button class='btn' id='expand'>Read More</button>"
         );
 
         $('#expand').on('click', function(e) {
-          $('#notes').toggleClass('collapsed');
+          $('#releasedata').toggleClass('collapsed');
+          $('#gradient').toggleClass('hidden');
           var button = $('#expand');
           if (button.text() === 'Read More') {
             button.text('Collapse');
