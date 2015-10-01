@@ -55,13 +55,19 @@ $(function(){
     
         var milestone = this.id;
 
-        $('#releasedata').html(
-          "<h2>Notes</h2><div id='notes'><pre>" +
-          md.render(notes_object[this.name]) +
-          "</pre></div>" +
-          "<div id='gradient'></div>" +
-          "<button class='btn' id='expand'>Read More</button>"
-        );
+        if(notes_object[this.name] !== undefined) {
+          $('#releasedata').html(
+            "<h2>Notes</h2><div id='notes'><pre>" +
+            md.render(notes_object[this.name]) +
+            "</pre></div>" +
+            "<div id='gradient'></div>" +
+            "<button class='btn' id='expand'>Read More</button>"
+          );
+        } else {
+          $('#releasedata').html(
+            "<h2>No Notes Found</h2>"
+          )
+        }
 
         $('#expand').on('click', function(e) {
           $('#releasedata').toggleClass('collapsed');
