@@ -85,7 +85,11 @@ $(function(){
           } else {
             outhtml = outhtml + '<h2>Issues:</h2> <section> <ul>';
             $.each(issues, function(index) {
-              outhtml = outhtml + '<li><a href="' + issues_baseurl + issues[index].number + '"  target="_blank">'+issues[index].title + '</a></li>';
+              var title = issues[index].title;
+              if(title.slice(0,8) === 'Tracking') {
+                title = title.slice(19);
+              }
+              outhtml = outhtml + '<li><a href="' + issues_baseurl + issues[index].number + '"  target="_blank">'+ title + '</a></li>';
             });
           }
         
