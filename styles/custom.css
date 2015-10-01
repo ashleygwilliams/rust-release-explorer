@@ -114,3 +114,19 @@ pre {
 #notes a, #notes a:hover {
   color: #7F2D2C;
 }
+
+.current {
+  border: 5px solid black;
+}
+
+.beta::after {
+  content: ' beta';
+}
+
+.nightly::after {
+  content: ' nightly ';
+}
+
+.stable::after {
+  content: ' stable ';
+}
