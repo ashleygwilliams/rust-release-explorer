@@ -10,24 +10,36 @@ $(function(){
     var milestone_buttons = '';
 
     if(milestones.length === 0) {
-      milestone_buttons = milestone_buttons + '<h3>No Milestones Found.</h3>';
+      milestone_buttons += '<h3>No Milestones Found.</h3>';
     } else {
       $.each(milestones, function(index) {
-        var classes = "btn milestone";
-        if (index === milestones.length - 1 ) {
-          classes += " nightly current";
-        } else if ( index === milestones.length - 2) {
-          classes += " beta current";
-        } else if ( index === milestones.length - 3) {
-          classes += " stable current";
+        var ms_count = milestones.length;
+        var milestone = milestones[index];
+
+        var milestoneClass = function(milestone, ms_count) {
+          var classes = "btn milestone";
+          if (index === ms_count - 1 ) {
+            classes += " nightly current";
+          } else if ( index === ms_count - 2) {
+            classes += " beta current";
+          } else if ( index === ms_count - 3) {
+            classes += " stable current";
+          }
+          return classes;
         }
-        milestone_buttons = milestone_buttons + 
-          '<button class="' + classes + '" id="' + 
-          milestones[index].number + 
-          '" name="'+ 
-          milestones[index].title  + '"  >' + 
-          milestones[index].title +
-          '</button>';
+
+        var classes = milestoneClass(milestone, ms_count);
+
+        var milestoneHTML = function(milestone, classes) {
+          return  '<button class="' + classes + 
+                        '" id="' + milestones[index].number + 
+                        '" name="'+ milestones[index].title  + 
+                  '"  >' + 
+                    milestones[index].title +
+                  '</button>';
+        };
+
+        milestone_buttons += milestoneHTML(milestone, classes);
       })
     }
 
