@@ -13,8 +13,16 @@ $(function(){
       milestone_buttons = milestone_buttons + '<h3>No Milestones Found.</h3>';
     } else {
       $.each(milestones, function(index) {
+        var classes = "btn milestone";
+        if (index === milestones.length - 1 ) {
+          classes += " nightly current";
+        } else if ( index === milestones.length - 2) {
+          classes += " beta current";
+        } else if ( index === milestones.length - 3) {
+          classes += " stable current";
+        }
         milestone_buttons = milestone_buttons + 
-          '<button class=" btn milestone" id="' + 
+          '<button class="' + classes + '" id="' + 
           milestones[index].number + 
           '" name="'+ 
           milestones[index].title  + '"  >' + 
