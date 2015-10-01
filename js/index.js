@@ -41,6 +41,10 @@ $(function(){
       var notes_object = {};
 
       for(var i=0; i < notes.length; i ++) {
+        if (notes[i].slice(0,6) === '1.0.0-' ) {
+          break;
+        }
+
         var release_name = notes[i].slice(0, 3);
 
         notes_object[release_name] = notes[i];
