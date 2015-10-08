@@ -10,24 +10,36 @@ $(function(){
     var milestone_buttons = '';
 
     if(milestones.length === 0) {
-      milestone_buttons = milestone_buttons + '<h3>No Milestones Found.</h3>';
+      milestone_buttons += '<h3>No Milestones Found.</h3>';
     } else {
       $.each(milestones, function(index) {
-        var classes = "btn milestone";
-        if (index === milestones.length - 1 ) {
-          classes += " nightly current";
-        } else if ( index === milestones.length - 2) {
-          classes += " beta current";
-        } else if ( index === milestones.length - 3) {
-          classes += " stable current";
+        var ms_count = milestones.length;
+        var milestone = milestones[index];
+
+        var milestoneClass = function(milestone, ms_count) {
+          var classes = "btn milestone";
+          if (index === ms_count - 1 ) {
+            classes += " nightly current";
+          } else if ( index === ms_count - 2) {
+            classes += " beta current";
+          } else if ( index === ms_count - 3) {
+            classes += " stable current";
+          }
+          return classes;
         }
-        milestone_buttons = milestone_buttons + 
-          '<button class="' + classes + '" id="' + 
-          milestones[index].number + 
-          '" name="'+ 
-          milestones[index].title  + '"  >' + 
-          milestones[index].title +
-          '</button>';
+
+        var classes = milestoneClass(milestone, ms_count);
+
+        var milestoneHTML = function(milestone, classes) {
+          return  '<button class="' + classes + 
+                        '" id="' + milestones[index].number + 
+                        '" name="'+ milestones[index].title  + 
+                  '"  >' + 
+                    milestones[index].title +
+                  '</button>';
+        };
+
+        milestone_buttons += milestoneHTML(milestone, classes);
       })
     }
 
@@ -37,41 +49,50 @@ $(function(){
       url: "https://raw.githubusercontent.com/rust-lang/rust/master/RELEASES.md"
     })
     .done(function(data){
-      var notes = data.split('Version ');
-      var notes_object = {};
+      var buildNotesObj = function(data) {
+        var notes = data.split('Version ');
+        var notes_object = {};
 
-      for(var i=0; i < notes.length; i ++) {
-        if (notes[i].slice(0,6) === '1.0.0-' ) {
-          break;
+        for(var i=0; i < notes.length; i ++) {
+          var note = notes[i];
+        
+          if (note.slice(0,6) === '1.0.0-' ) {
+            break;
+          }
+
+          var release_name = note.slice(0, 3);
+
+          notes_object[release_name] = note;
         }
+        return notes_object;
+      };
 
-        var release_name = notes[i].slice(0, 3);
-
-        notes_object[release_name] = notes[i];
-      }
+      var notes_object = buildNotesObj(data);
 
       $('.milestone').on('click', function(e){
         $('#ghapidata').html('<div id="loader"><img src="images/loading.gif" class="loading" alt="loading..."></div>');
     
-        var milestone = this.id;
+        var milestone = this;
+        var note = notes_object[milestone.name];
 
-        if(notes_object[this.name] !== undefined) {
-          $('#releasedata').html(
-            "<h2>Notes</h2><div id='notes'><pre>" +
-            md.render(notes_object[this.name]) +
-            "</pre></div>" +
-            "<div id='gradient'></div>" +
-            "<button class='btn' id='expand'>Read More</button>"
-          );
-        } else {
-          $('#releasedata').html(
-            "<h2>No Notes Found</h2>"
-          )
-        }
+        var noteHTML = function(milestone, note) {
+          var html = ''
+          if(notes_object[milestone.name] !== undefined) {
+            html += "<h2>Notes</h2>" +
+                    "<div id='notes'>" +
+                      "<pre>" + md.render(note) + "</pre>" +
+                    "</div>" +
+                    "<button class='btn' id='expand'>Read More</button>";
+          } else {
+            html += "<h2>No Notes Found</h2>";
+          }
+          return html;
+        };
+
+        $('#releasedata').html(noteHTML(milestone, note));
 
         $('#expand').on('click', function(e) {
           $('#releasedata').toggleClass('collapsed');
-          $('#gradient').toggleClass('hidden');
           var button = $('#expand');
           if (button.text() === 'Read More') {
             button.text('Collapse');
@@ -80,26 +101,28 @@ $(function(){
           }
         });
 
-        var req_issues = "https://api.github.com/repos/rust-lang/rust/issues?state=all&milestone=" + milestone;
+        var req_issues = "https://api.github.com/repos/rust-lang/rust/issues?state=all&milestone=" + milestone.id;
         requestJSON(req_issues, function(json) {
           var issues = json;
-          var outhtml = '';
+          var html = '';
           var issues_baseurl = 'http://www.github.com/rust-lang/rust/issues/';        
 
           if(issues.length === 0) { 
-            outhtml = '<h2>No issues!</h2>'; 
+            html = '<h2>No issues!</h2>'; 
           } else {
-            outhtml = outhtml + '<h2>Issues:</h2> <section> <ul>';
+            html += '<h2>Issues:</h2> <section> <ul>';
             $.each(issues, function(index) {
-              var title = issues[index].title;
+              var issue = issues[index];
+              var title = issue.title;
+              var url = issues_baseurl + issue.number;
               if(title.slice(0,8) === 'Tracking') {
                 title = title.slice(19);
               }
-              outhtml = outhtml + '<li><a href="' + issues_baseurl + issues[index].number + '"  target="_blank">'+ title + '</a></li>';
+              html += '<li><a href="' + url  + '"  target="_blank">'+ title + '</a></li>';
             });
           }
         
-          $('#ghapidata').html(outhtml);
+          $('#ghapidata').html(html);
         });
       });
     });
